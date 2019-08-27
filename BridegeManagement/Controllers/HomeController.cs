@@ -141,7 +141,9 @@ namespace BridegeManagement.Controllers
                                 //CreateUser = user.StaffName,
                                 //CreateTime = DateTime.Now,
 
-                                Name = worksheet.Cells[row, 2].Value?.ToString() ?? string.Empty,
+                                Name = worksheet.Cells[row, FindCol(worksheet, "名称")].Value?.ToString() ?? string.Empty,
+                                PierNum= worksheet.Cells[row, FindCol(worksheet, "桩号")].Value?.ToString() ?? string.Empty,
+                                RouteGrade= int.Parse(worksheet.Cells[row, FindCol(worksheet, "路线等级")].Value?.ToString() ?? string.Empty),
 
                             };
 
@@ -216,8 +218,26 @@ namespace BridegeManagement.Controllers
                 //return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
-        }
+            //
+            //TODO：数据读取有效性，上下界校验等未作检查
+            int FindCol(ExcelWorksheet worksheet, string Title)
+            {
+                int Ubound = 1000;    //列上界
+                for(int i=2;i<Ubound;i++)
+                {
+                    if((worksheet.Cells[1, i].Value?.ToString() ?? string.Empty)==Title)
+                    {
+                        return i;
+                    }
+                }
+                return 0;    //查找不到则返回0
+            }
 
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Privacy()
         {
             return View();
