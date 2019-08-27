@@ -8,24 +8,38 @@ namespace BridegeManagement.Models
 {
     public class Damage
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public Guid Id { get; set; }
-        // 病害ID
- 
-        public string DamageName { get; set; }
-        // 病害名称
-  
-        public int DamageAmount { get; set; }
-        // 病害数量
 
-        public decimal DamageLength { get; set; }
-        // 长度
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// 数量
+        /// </summary>
+        public int Amount { get; set; }
 
-        public decimal DamageArea { get; set; }
-        // 面积
+        /// <summary>
+        /// 长度
+        /// </summary>
+        public decimal Length { get; set; }
+        /// <summary>
+        /// 宽度
+        /// </summary>
+        public decimal Width { get; set; }
+        /// <summary>
+        /// 面积
+        /// </summary>
+        public decimal Area { get; set; }
+        /// <summary>
+        /// 最大裂缝宽度
+        /// </summary>
+        public decimal MaxCrackWidth { get; set; }
 
-        public decimal MaxWidth { get; set; }
-        //最大裂缝宽度
-
+        public string Comment { get; set; }
         /// <summary>
         /// 部件<<=病害
         /// </summary>

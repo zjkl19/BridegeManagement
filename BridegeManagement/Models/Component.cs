@@ -9,47 +9,63 @@ namespace BridegeManagement.Models
     public class Component
     {
         public Guid Id { get; set; }
-        // 构件ID
-
-        public string ComponentName { get; set; }
-        //构件名称
-
-        public int CompBelongTo { get; set; }
-        // 构件从属部位1：上部结构；2：下部结构；3：桥面系
-
-        public int CompImportance { get; set; }
-        // 构件重要性（1.主要构件；2.次要构件）
-
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        ///  构件从属部位1：上部结构；2：下部结构；3：桥面系
+        /// </summary>
+        public int BelongTo { get; set; }
+        /// <summary>
+        /// 权重
+        /// </summary>
         public decimal Weight { get; set; }
-        //权重
+        /// <summary>
+        /// 重要性（1.主要构件；2.次要构件）
+        /// </summary>
+        public int Importance { get; set; }
 
-        public int CompAmount { get; set; }
-        // 构件数量
+        /// <summary>
+        /// 数量
+        /// </summary>
+        public int Amount { get; set; }
 
-        public decimal CompAvgScore { get; set; }
-        // 构件平均分
+        /// <summary>
+        /// 平均分
+        /// </summary>
+        public decimal AvgScore { get; set; }
+        /// <summary>
+        /// 最小评分
+        /// </summary>
+        public decimal MinScore { get; set; }
 
-        public decimal CompMinScore { get; set; }
-        // 构件最小评分
+        /// <summary>
+        /// 系数t
+        /// </summary>
+        public decimal Coefft { get; set; }
+        /// <summary>
+        /// 评分
+        /// </summary>
+        public decimal Score { get; set; }
+        /// <summary>
+        /// 等级
+        /// </summary>
+        public int Grade { get; set;}
 
-        public decimal CoeffT { get; set; }
-        // 系数t
-
-        public decimal CompScore { get; set; }
-        // 部件评分
-
-        public int CompGrade { get; set;}
-        //部件等级
-
-
-
-  
-
-
+        /// <summary>
+        /// 部位评分
+        /// </summary>
+        public decimal PartScore { get; set; }
+        /// <summary>
+        /// 部位等级
+        /// </summary>
+        public int PartGrade { get; set; }
+        /// <summary>
+        /// 所属桥梁ID
+        /// </summary>
         [ForeignKey("Bridge")]
         public Guid BridgeId { get; set; }
-        // 所属桥梁ID
-
 
         /// <summary>
         /// 桥梁<<=部件映射

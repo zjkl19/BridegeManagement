@@ -8,72 +8,92 @@ namespace BridegeManagement.Models
     public class Bridge
     {
         public Guid Id { get; set; }
-        // 桥梁ID
-
-        public string Name { get; set; }        
-        // 桥梁名称
-       
-        public string PierNum { get; set; }     
-        // 桥梁桩号Kxxx+xxx
-
-        public string RouteName { get; set; }   
-        // 路线编号（Gxxx)
-
-        public int RouteGrade { get; set; }     
-        // 路线等级
-
-        public string Functions { get; set; }
-        // 功能类型
-
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// 桩号Kxxx+xxx
+        /// </summary>
+        public string PierNum { get; set; }
+        /// <summary>
+        /// 路线编号（Gxxx)
+        /// </summary>
+        public string RouteName { get; set; }
+        /// <summary>
+        /// 路线等级
+        /// </summary>
+        public int RouteGrade { get; set; }
+        /// <summary>
+        /// 功能类型
+        /// </summary>
+        public string Function { get; set; }
+        /// <summary>
+        /// 设计荷载
+        /// </summary>
         public int DesignLoad { get; set; }
-        // 设计荷载
-
+        /// <summary>
+        /// 桥面铺装
+        /// </summary>
         public string Pavement { get; set; }
-        //桥面铺装
 
         //管理单位
 
+        /// <summary>
+        /// 修建年代
+        /// </summary>
         public DateTime BuildYear { get; set; }
-        // 修建年代
-
+        /// <summary>
+        /// 桥梁总长
+        /// </summary>
         public decimal TotalLength { get; set; }
-        // 桥梁总长
-
+        /// <summary>
+        /// 最大跨径
+        /// </summary>
         public decimal MaxSpan { get; set; }
-        //最大跨径
-
+        /// <summary>
+        /// 桥面总宽
+        /// </summary>
         public decimal TotalWidth { get; set; }
-        //桥面总宽
-
+        /// <summary>
+        /// 车行道宽
+        /// </summary>
         public decimal RoadWidth { get; set; }
-        //车行道宽
-
+        /// <summary>
+        /// 主要桥型
+        /// </summary>
         public int MainType { get; set; }
-        //主要桥型
-
+        /// <summary>
+        /// 细分桥型
+        /// </summary>
         public int SubType { get; set; }
-        //细分桥型
-
+        /// <summary>
+        /// 全桥评分
+        /// </summary>
         public decimal Score { get; set; }
-        //全桥评分
-
+        /// <summary>
+        /// 全桥评定等级
+        /// </summary>
         public int Grade { get; set; }
-        //全桥评定等级
 
         public DateTime CheckYear { get; set; }
-  
-        
+
+        /// <summary>
+        /// 地理环境
+        /// </summary>
         public int GeoCondition { get; set; }
-        //地理环境
-
+        /// <summary>
+        /// 经度
+        /// </summary>
         public decimal Longitude { get; set; }
-        //经度
-
+        /// <summary>
+        /// 纬度
+        /// </summary>
         public decimal Latitude { get; set; }
-        //纬度
-
+        /// <summary>
+        /// 交通量
+        /// </summary>
         public int TrafficVolume { get; set; }
-        //交通量
 
 
         /// <summary>
