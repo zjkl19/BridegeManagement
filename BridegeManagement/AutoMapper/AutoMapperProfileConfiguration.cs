@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BridegeManagement.Models;
+using BridegeManagement.ViewModels.BridgeViewModels;
 using System;
 
 namespace BridegeManagement
@@ -52,6 +53,9 @@ namespace BridegeManagement
             //    .ForMember(dest => dest.ProcedureName, src => src.MapFrom(x => x.Procedure.Name));
             //CreateMap<CreateCableForceMonitorViewModel, CableForceMonitor>()
             //    .ForMember(dest => dest.Id, src => src.MapFrom(x => Guid.NewGuid()));
+
+            CreateMap<CreateBridgeViewModel, Bridge>()
+                .ForMember(dest => dest.Id, src => src.MapFrom(x => Guid.NewGuid()));
         }
     }
 }

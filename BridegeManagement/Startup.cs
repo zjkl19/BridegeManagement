@@ -16,6 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 using BridegeManagement.IRepository;
 using BridegeManagement.Repository;
 using AutoMapper;
+using BridegeManagement.IControllerService;
+using BridegeManagement.ControllerService;
 
 namespace BridegeManagement
 {
@@ -60,6 +62,7 @@ namespace BridegeManagement
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //IOC
+            services.AddScoped<IWebFileService, WebFileService>();
             services.AddScoped<IBridgeRepository, BridgeRepository>();
             services.AddScoped<IComponentRepository, ComponentRepository>();
             services.AddScoped<IDamageRepository, DamageRepository>();
