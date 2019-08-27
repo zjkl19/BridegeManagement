@@ -13,6 +13,9 @@ using Microsoft.EntityFrameworkCore;
 using BridegeManagement.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using BridegeManagement.IRepository;
+using BridegeManagement.Repository;
+using AutoMapper;
 
 namespace BridegeManagement
 {
@@ -21,9 +24,14 @@ namespace BridegeManagement
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            _mapperConfiguration = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutoMapperProfileConfiguration());
+            });
         }
 
         public IConfiguration Configuration { get; }
+        private MapperConfiguration _mapperConfiguration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -47,7 +55,14 @@ namespace BridegeManagement
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddSingleton(sp => _mapperConfiguration.CreateMapper());
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //IOC
+            services.AddScoped<IBridgeRepository, BridgeRepository>();
+            services.AddScoped<IComponentRepository, ComponentRepository>();
+            services.AddScoped<IDamageRepository, DamageRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
