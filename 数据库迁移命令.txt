@@ -1,0 +1,7 @@
+
+迁移初始化：
+格式：dotnet ef migrations add xxxx
+举例：dotnet ef migrations add InitDb
+
+执行迁移：
+格式：dotnet ef database update

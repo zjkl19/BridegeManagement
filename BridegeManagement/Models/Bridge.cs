@@ -27,7 +27,7 @@ namespace BridegeManagement.Models
         /// <summary>
         /// 功能类型
         /// </summary>
-        public string Function { get; set; }
+        public string FunctionType { get; set; }
         /// <summary>
         /// 设计荷载
         /// </summary>

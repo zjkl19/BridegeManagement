@@ -4,14 +4,16 @@ using BridegeManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BridegeManagement.Data.Migrations
+namespace BridegeManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190827072907_InitDb")]
+    partial class InitDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +32,7 @@ namespace BridegeManagement.Data.Migrations
 
                     b.Property<int>("DesignLoad");
 
-                    b.Property<string>("Functions");
+                    b.Property<string>("FunctionType");
 
                     b.Property<int>("GeoCondition");
 
@@ -76,25 +78,29 @@ namespace BridegeManagement.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("Amount");
+
+                    b.Property<decimal>("AvgScore");
+
+                    b.Property<int>("BelongTo");
+
                     b.Property<Guid>("BridgeId");
 
-                    b.Property<decimal>("CoeffT");
+                    b.Property<decimal>("Coefft");
 
-                    b.Property<int>("CompAmount");
+                    b.Property<int>("Grade");
 
-                    b.Property<decimal>("CompAvgScore");
+                    b.Property<int>("Importance");
 
-                    b.Property<int>("CompBelongTo");
+                    b.Property<decimal>("MinScore");
 
-                    b.Property<int>("CompGrade");
+                    b.Property<string>("Name");
 
-                    b.Property<int>("CompImportance");
+                    b.Property<int>("PartGrade");
 
-                    b.Property<decimal>("CompMinScore");
+                    b.Property<decimal>("PartScore");
 
-                    b.Property<decimal>("CompScore");
-
-                    b.Property<string>("ComponentName");
+                    b.Property<decimal>("Score");
 
                     b.Property<decimal>("Weight");
 
@@ -110,17 +116,21 @@ namespace BridegeManagement.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("Amount");
+
+                    b.Property<decimal>("Area");
+
+                    b.Property<string>("Comment");
+
                     b.Property<Guid>("ComponentId");
 
-                    b.Property<int>("DamageAmount");
+                    b.Property<decimal>("Length");
 
-                    b.Property<decimal>("DamageArea");
+                    b.Property<decimal>("MaxCrackWidth");
 
-                    b.Property<decimal>("DamageLength");
+                    b.Property<string>("Name");
 
-                    b.Property<string>("DamageName");
-
-                    b.Property<decimal>("MaxWidth");
+                    b.Property<decimal>("Width");
 
                     b.HasKey("Id");
 

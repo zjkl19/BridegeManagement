@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BridegeManagement.Data.Migrations
+namespace BridegeManagement.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class InitDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +45,38 @@ namespace BridegeManagement.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Bridges",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    PierNum = table.Column<string>(nullable: true),
+                    RouteName = table.Column<string>(nullable: true),
+                    RouteGrade = table.Column<int>(nullable: false),
+                    FunctionType = table.Column<string>(nullable: true),
+                    DesignLoad = table.Column<int>(nullable: false),
+                    Pavement = table.Column<string>(nullable: true),
+                    BuildYear = table.Column<DateTime>(nullable: false),
+                    TotalLength = table.Column<decimal>(nullable: false),
+                    MaxSpan = table.Column<decimal>(nullable: false),
+                    TotalWidth = table.Column<decimal>(nullable: false),
+                    RoadWidth = table.Column<decimal>(nullable: false),
+                    MainType = table.Column<int>(nullable: false),
+                    SubType = table.Column<int>(nullable: false),
+                    Score = table.Column<decimal>(nullable: false),
+                    Grade = table.Column<int>(nullable: false),
+                    CheckYear = table.Column<DateTime>(nullable: false),
+                    GeoCondition = table.Column<int>(nullable: false),
+                    Longitude = table.Column<decimal>(nullable: false),
+                    Latitude = table.Column<decimal>(nullable: false),
+                    TrafficVolume = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bridges", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -153,6 +185,61 @@ namespace BridegeManagement.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Components",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    BelongTo = table.Column<int>(nullable: false),
+                    Weight = table.Column<decimal>(nullable: false),
+                    Importance = table.Column<int>(nullable: false),
+                    Amount = table.Column<int>(nullable: false),
+                    AvgScore = table.Column<decimal>(nullable: false),
+                    MinScore = table.Column<decimal>(nullable: false),
+                    Coefft = table.Column<decimal>(nullable: false),
+                    Score = table.Column<decimal>(nullable: false),
+                    Grade = table.Column<int>(nullable: false),
+                    PartScore = table.Column<decimal>(nullable: false),
+                    PartGrade = table.Column<int>(nullable: false),
+                    BridgeId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Components", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Components_Bridges_BridgeId",
+                        column: x => x.BridgeId,
+                        principalTable: "Bridges",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Damages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Amount = table.Column<int>(nullable: false),
+                    Length = table.Column<decimal>(nullable: false),
+                    Width = table.Column<decimal>(nullable: false),
+                    Area = table.Column<decimal>(nullable: false),
+                    MaxCrackWidth = table.Column<decimal>(nullable: false),
+                    Comment = table.Column<string>(nullable: true),
+                    ComponentId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Damages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Damages_Components_ComponentId",
+                        column: x => x.ComponentId,
+                        principalTable: "Components",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -191,6 +278,16 @@ namespace BridegeManagement.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Components_BridgeId",
+                table: "Components",
+                column: "BridgeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Damages_ComponentId",
+                table: "Damages",
+                column: "ComponentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -211,10 +308,19 @@ namespace BridegeManagement.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Damages");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Components");
+
+            migrationBuilder.DropTable(
+                name: "Bridges");
         }
     }
 }

@@ -41,8 +41,7 @@ namespace BridegeManagement
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("SqlServerConnection")));
-
+                    Configuration.GetConnectionString("LocalSqlServerConnection")));
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
