@@ -14,6 +14,10 @@ namespace BridegeManagement.Models
         public Guid Id { get; set; }
 
         /// <summary>
+        /// 编号
+        /// </summary>
+        public string Num { get; set; }
+        /// <summary>
         /// 名称
         /// </summary>
         public string Name { get; set; }

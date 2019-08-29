@@ -52,6 +52,7 @@ namespace BridegeManagement.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    Number = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     PierNum = table.Column<string>(nullable: true),
                     RouteName = table.Column<string>(nullable: true),
@@ -191,9 +192,9 @@ namespace BridegeManagement.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    BelongTo = table.Column<int>(nullable: false),
+                    BelongTo = table.Column<string>(nullable: true),
                     Weight = table.Column<decimal>(nullable: false),
-                    Importance = table.Column<int>(nullable: false),
+                    Importance = table.Column<string>(nullable: true),
                     Amount = table.Column<int>(nullable: false),
                     AvgScore = table.Column<decimal>(nullable: false),
                     MinScore = table.Column<decimal>(nullable: false),
@@ -220,6 +221,7 @@ namespace BridegeManagement.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    Num = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Amount = table.Column<int>(nullable: false),
                     Length = table.Column<decimal>(nullable: false),

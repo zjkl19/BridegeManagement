@@ -46,6 +46,8 @@ namespace BridegeManagement.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("Number");
+
                     b.Property<string>("Pavement");
 
                     b.Property<string>("PierNum");
@@ -80,7 +82,7 @@ namespace BridegeManagement.Migrations
 
                     b.Property<decimal>("AvgScore");
 
-                    b.Property<int>("BelongTo");
+                    b.Property<string>("BelongTo");
 
                     b.Property<Guid>("BridgeId");
 
@@ -88,7 +90,7 @@ namespace BridegeManagement.Migrations
 
                     b.Property<int>("Grade");
 
-                    b.Property<int>("Importance");
+                    b.Property<string>("Importance");
 
                     b.Property<decimal>("MinScore");
 
@@ -127,6 +129,8 @@ namespace BridegeManagement.Migrations
                     b.Property<decimal>("MaxCrackWidth");
 
                     b.Property<string>("Name");
+
+                    b.Property<string>("Num");
 
                     b.Property<decimal>("Width");
 

@@ -16,7 +16,7 @@ namespace BridegeManagement.Models
         /// <summary>
         ///  构件从属部位1：上部结构；2：下部结构；3：桥面系
         /// </summary>
-        public int BelongTo { get; set; }
+        public string BelongTo { get; set; }
         /// <summary>
         /// 权重
         /// </summary>
@@ -24,7 +24,7 @@ namespace BridegeManagement.Models
         /// <summary>
         /// 重要性（1.主要构件；2.次要构件）
         /// </summary>
-        public int Importance { get; set; }
+        public string Importance { get; set; }
 
         /// <summary>
         /// 数量

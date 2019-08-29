@@ -8,6 +8,8 @@ namespace BridegeManagement.Models
     public class Bridge
     {
         public Guid Id { get; set; }
+
+        public string Number { get; set; }
         /// <summary>
         /// 名称
         /// </summary>
