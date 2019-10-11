@@ -96,7 +96,10 @@ namespace BridegeManagement.Models
         /// 交通量
         /// </summary>
         public int TrafficVolume { get; set; }
-
+        /// <summary>
+        /// 所属单位
+        /// </summary>
+        public string Owner { get; set; }
 
         /// <summary>
         /// 桥梁=>>多个部件
