@@ -65,6 +65,14 @@ namespace BridegeManagement.Controllers
             return View();
         }
 
+        public IActionResult Main()
+        {
+            var k = _damageRepository.EntityItems.Where(x => x.Num == 12).Count();
+
+            ViewBag.result = k;
+            return View();
+        }
+
         //[HttpGet]
         //public IActionResult ExcelImportBridge()
         //{

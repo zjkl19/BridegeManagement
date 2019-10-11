@@ -16,7 +16,7 @@ namespace BridegeManagement.Models
         /// <summary>
         /// 编号
         /// </summary>
-        public string Num { get; set; }
+        public int Num { get; set; }
         /// <summary>
         /// 名称
         /// </summary>

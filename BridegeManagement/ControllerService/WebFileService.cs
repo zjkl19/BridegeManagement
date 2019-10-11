@@ -1,5 +1,4 @@
 ﻿using BridegeManagement.IControllerService;
-using BridegeManagement.IControllerService;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
