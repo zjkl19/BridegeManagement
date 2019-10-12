@@ -1,7 +1,55 @@
-﻿@{
+﻿@model MainViewModel
+@{
     ViewData["Title"] = "主函数";
+    int i = 1;
+    var headerMetadata = Model.CombineViewModels.FirstOrDefault();
+    var pCount = Model.CombineViewModels.Count();
 }
 
 <div class="text-center">
-    <p>@ViewBag.result</p>
+    <p>结果：@ViewBag.result</p>
 </div>
+<table id="dataTable" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                序号
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => headerMetadata.BridgeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => headerMetadata.ComponentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => headerMetadata.DamageNum)
+            </th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CombineViewModels)
+        {
+            <tr>
+                <td>
+                    @i
+                    @{
+                        i++;
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BridgeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ComponentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DamageNum)
+                </td>
+                <td>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>

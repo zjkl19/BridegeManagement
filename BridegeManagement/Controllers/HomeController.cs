@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Http;
 using BridegeManagement.IControllerService;
 using System.IO;
 using OfficeOpenXml;
+using BridegeManagement.ViewModels.HomeViewModels;
+using BridegeManagement.ViewModels.ComponentViewModels;
 
 namespace BridegeManagement.Controllers
 {
@@ -67,10 +69,26 @@ namespace BridegeManagement.Controllers
 
         public IActionResult Main()
         {
-            var k = _damageRepository.EntityItems.Where(x => x.Num == 12).Count();
+            //var k = _damageRepository.GetQuery(x => x.Num == 5).Include(x=>x.Component).Where(x=>x.Component.Name== "上部承重构件");
 
-            ViewBag.result = k;
-            return View();
+            var k = from p in _bridgeRepository.EntityItems
+                    join q in _componentRepository.EntityItems
+                    on p.Id equals q.BridgeId
+                    join r in _damageRepository.EntityItems
+                    on q.Id equals r.ComponentId
+                    where r.Num == 2
+                    select new CombineViewModel
+                    {
+                        BridgeName=p.Name,
+                        ComponentName=q.Name,
+                        DamageNum=r.Num
+                    };
+
+            var v = new MainViewModel
+            {
+                CombineViewModels = k
+            };
+            return View(v);
         }
 
         //[HttpGet]

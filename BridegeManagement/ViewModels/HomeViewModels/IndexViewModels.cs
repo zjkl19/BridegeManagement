@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BridegeManagement.ViewModels.HomeViewModels
 {
-    public class IndexViewModels
+    public class IndexViewModel
     {
     }
 }
