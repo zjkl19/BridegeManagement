@@ -22,6 +22,8 @@ namespace BridegeManagement.ViewModels.HomeViewModels
 
         [Display(Name = "病害代码")]
         public int DamageNum { get; set; }
+        [Display(Name = "所属分局")]
+        public string Owner { get; set; }
 
 
     }

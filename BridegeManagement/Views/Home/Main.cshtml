@@ -1,13 +1,13 @@
 ﻿@model MainViewModel
 @{
     ViewData["Title"] = "主函数";
-    int i = 1;
+    int i = 1; int k = 1;
     var headerMetadata = Model.CombineViewModels.FirstOrDefault();
     var pCount = Model.CombineViewModels.Count();
 }
 
 <div class="text-center">
-    <p>结果：@ViewBag.result</p>
+    <p>结果：@pCount</p>
 </div>
 <table id="dataTable" class="table table-bordered">
     <thead>
@@ -23,6 +23,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => headerMetadata.DamageNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => headerMetadata.Owner)
             </th>
             <th>操作</th>
         </tr>
@@ -47,9 +50,82 @@
                     @Html.DisplayFor(modelItem => item.DamageNum)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Owner)
                 </td>
             </tr>
 
         }
+    </tbody>
+</table>
+<div>病害统计：</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                序号
+            </th>
+            <th>
+                数据库格式
+            </th>
+            <th>
+                报告格式
+            </th>
+            <th>
+                数量
+            </th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int j = 0; j < Model.DamageArray.Count(); j++)
+        {
+            if (Model.DamageCounts[j] == Model.DamageCounts.Max())
+            {
+                <tr class="alert alert-danger">
+                    <td>
+                        @k
+                        @{
+                            k++;
+                        }
+                    </td>
+                    <td>
+                        @Model.DamageArray[j]
+                    </td>
+                    <td>
+                        @Model.DamageArrayName[j]
+                    </td>
+                    <td>
+                        @Model.DamageCounts[j]
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>
+                        @k
+                        @{
+                            k++;
+                        }
+                    </td>
+                    <td>
+                        @Model.DamageArray[j]
+                    </td>
+                    <td>
+                        @Model.DamageArrayName[j]
+                    </td>
+                    <td>
+                        @Model.DamageCounts[j]
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            }
+
+
+        }
+
     </tbody>
 </table>

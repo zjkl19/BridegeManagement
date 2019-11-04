@@ -18,8 +18,32 @@ using BridegeManagement.ViewModels.ComponentViewModels;
 
 namespace BridegeManagement.Controllers
 {
+
+    public static class StaticDistinctBy
+    {
+        public static IEnumerable<T> DistinctBy<T>(this IEnumerable<T> list, Func<T, object> propertySelector)
+        {
+            return list.GroupBy(propertySelector).Select(x => x.First());
+        }
+
+        //public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        //{
+        //    HashSet<TKey> seenKeys = new HashSet<TKey>();
+        //    foreach (TSource element in source)
+        //    {
+        //        if (seenKeys.Add(keySelector(element)))
+        //        {
+        //            yield return element;
+        //        }
+        //    }
+        //}
+    }
+
     public class HomeController : Controller
     {
+
+
+
         private readonly IBridgeRepository _bridgeRepository;
         private readonly IComponentRepository _componentRepository;
         private readonly IDamageRepository _damageRepository;
@@ -67,26 +91,61 @@ namespace BridegeManagement.Controllers
             return View();
         }
 
+
+
         public IActionResult Main()
         {
             //var k = _damageRepository.GetQuery(x => x.Num == 5).Include(x=>x.Component).Where(x=>x.Component.Name== "上部承重构件");
 
-            var k = from p in _bridgeRepository.EntityItems
-                    join q in _componentRepository.EntityItems
-                    on p.Id equals q.BridgeId
-                    join r in _damageRepository.EntityItems
-                    on q.Id equals r.ComponentId
-                    where r.Num == 2
-                    select new CombineViewModel
-                    {
-                        BridgeName=p.Name,
-                        ComponentName=q.Name,
-                        DamageNum=r.Num
-                    };
+            int testSubType = 23;
+            //var testDateTime = new DateTime(1980, 1, 1);
+
+            var damageArray = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 999 };
+            int[] damageCounts = new int[27];
+            for(int i=0;i<27;i++)
+            {
+                damageCounts[i] = 0;
+            }
+
+            var k = (from p in _bridgeRepository.EntityItems
+                     join q in _componentRepository.EntityItems
+                     on p.Id equals q.BridgeId
+                     join r in _damageRepository.EntityItems
+                     on q.Id equals r.ComponentId
+                     //where p.Grade==3
+                     where p.SubType == testSubType
+                     //where p.BuildYear < testDateTime
+                     select new CombineViewModel
+                     {
+                         BridgeName = p.Name,
+                         ComponentName = q.Name,
+                         DamageNum = r.Num,
+                         Owner=p.Owner,                         
+                     }).DistinctBy(p=>p.BridgeName);
+
+            for (int i = 0; i < 27; i++)
+            {
+                damageCounts[i] = (from p in _bridgeRepository.EntityItems
+                                   join q in _componentRepository.EntityItems
+                                   on p.Id equals q.BridgeId
+                                   join r in _damageRepository.EntityItems
+                                   on q.Id equals r.ComponentId
+                                   where p.SubType == testSubType 
+                                   //where p.BuildYear< testDateTime
+                                   && r.Num == damageArray[i]
+                                   select new CombineViewModel
+                                   {
+                                       BridgeName = p.Name,
+                                       ComponentName = q.Name,
+                                       DamageNum = r.Num
+                                   }).Count();
+            }
 
             var v = new MainViewModel
             {
-                CombineViewModels = k
+                CombineViewModels = k,
+                DamageArray=damageArray,
+                DamageCounts= damageCounts,
             };
             return View(v);
         }
