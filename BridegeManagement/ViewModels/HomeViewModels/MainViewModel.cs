@@ -1,6 +1,7 @@
 ﻿using BridegeManagement.ViewModels.ComponentViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,5 +19,18 @@ namespace BridegeManagement.ViewModels.HomeViewModels
         };
 
         public int[] DamageCounts;
+    }
+
+    public enum DamageType
+    {
+        [Display(Name = "磨损")]
+        wearout = 1,
+        [Display(Name = "坑槽")]
+        potholes = 2,
+        [Display(Name = "网裂")]
+        netcrack = 3,
+        [Display(Name = "碎裂")]
+        craze = 4
+
     }
 }

@@ -1,0 +1,53 @@
+﻿@model BridgeCountsViewModel
+@{
+    ViewData["Title"] = "桥梁数量";
+    int i = 1; int k = 1;
+}
+
+<table id="dataTable" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                1960年前桥梁
+            </th>
+            <th>
+                1960-1979年桥梁
+            </th>
+            <th>
+                1980-1999年桥梁
+            </th>
+            <th>
+                2000-2009年桥梁
+            </th>
+            <th>
+                2010年至今桥梁
+            </th>
+            <th>
+                未填建桥信息桥梁
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Model.BridgeCountsArray[0]
+            </td>
+            <td>
+                @Model.BridgeCountsArray[1]
+            </td>
+            <td>
+                @Model.BridgeCountsArray[2]
+            </td>
+            <td>
+                @Model.BridgeCountsArray[3]
+            </td>
+            <td>
+                @Model.BridgeCountsArray[4]
+            </td>
+            <td>
+                @Model.BridgeCountsArray[5]
+            </td>
+        </tr>
+
+    </tbody>
+</table>
