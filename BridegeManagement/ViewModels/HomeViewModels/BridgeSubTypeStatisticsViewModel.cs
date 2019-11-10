@@ -10,6 +10,7 @@ namespace BridegeManagement.ViewModels.HomeViewModels
     public class BridgeSubTypeStatisticsViewModel
     {
         public int[] BridgeSubTypeCountsArray;
+        public List<SubTypeDamageCombineViewModel> SubTypeDamageCombineViewModels { get; set; }
 
     }
 

@@ -1,6 +1,7 @@
 ﻿@model BridgeSubTypeStatisticsViewModel
 @{
     ViewData["Title"] = "桥梁数量";
+    int k = 1;
 }
 
 <table id="dataTable" class="table table-bordered">
@@ -65,6 +66,61 @@
                 @Model.BridgeSubTypeCountsArray[8]
             </td>
         </tr>
+
+    </tbody>
+</table>
+
+<div>病害统计：</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                序号
+            </th>
+            <th>
+                桥梁类型
+            </th>
+            <th>
+                病害代码
+            </th>
+            <th>
+                病害类型
+            </th>
+            <th>
+                病害数量
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int j = 0; j < Model.SubTypeDamageCombineViewModels.Count(); j++)
+        {
+
+        <tr>
+            <td>
+                @k
+                @{
+                    k++;
+                }
+            </td>
+            <td>
+                板拱
+            </td>
+            <td>
+                @Convert.ToInt32(Model.SubTypeDamageCombineViewModels[j].DamageType)
+            </td>
+            <td>
+                @Html.DisplayFor(x => Model.SubTypeDamageCombineViewModels[j].DamageType)
+            </td>
+            <td>
+                @Model.SubTypeDamageCombineViewModels[j].DamageCounts
+            </td>
+            <td>
+            </td>
+        </tr>
+
+
+
+        }
 
     </tbody>
 </table>

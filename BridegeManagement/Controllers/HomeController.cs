@@ -195,39 +195,10 @@ namespace BridegeManagement.Controllers
 
             var subTypeArray = new int[subTypeCounts];
 
-            //        public enum BridgeSubType
-            //{
-            //    [Display(Name = "板梁")]
-            //    banliang = 11,
-            //    [Display(Name = "空心板梁")]
-            //    kongxinbanliang = 12,
-            //    [Display(Name = "T梁")]
-            //    tliang = 13,
-            //    [Display(Name = "小箱梁")]
-            //    xiaoxiangliang = 14,
-            //    [Display(Name = "箱梁")]
-            //    xiangliang = 15,
-            //    [Display(Name = "石拱桥")]
-            //    shigongqiao = 16,
-            //    [Display(Name = "圬工拱桥")]
-            //    wugonggongqiao = 22,
-            //    [Display(Name = "板拱")]
-            //    bangong = 23,
-            //    [Display(Name = "刚构桥")]
-            //    ganggouqiao = 26,
-
-            //}
-
-
             subTypeArray[0] = Convert.ToInt32(BridgeSubType.banliang);
-            subTypeArray[1] = 12;
-            subTypeArray[2] = 13;
-            subTypeArray[3] = 14;
-            subTypeArray[4] = 15;
-            subTypeArray[5] = 16;
-            subTypeArray[6] = 22;
-            subTypeArray[7] = 23;
-            subTypeArray[8] = 26;
+            subTypeArray[1] = 12; subTypeArray[2] = 13; subTypeArray[3] = 14;
+            subTypeArray[4] = 15; subTypeArray[5] = 16; subTypeArray[6] = 22;
+            subTypeArray[7] = 23; subTypeArray[8] = 26;
 
             for (int i = 0; i < subTypeCounts; i++)
             {
@@ -237,9 +208,40 @@ namespace BridegeManagement.Controllers
                      ).Count();
             }
 
+            var damageArray = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 999 };
+            int[] damageCounts = new int[27];
+            var k = (from p in _bridgeRepository.EntityItems
+                     join q in _componentRepository.EntityItems
+                     on p.Id equals q.BridgeId
+                     join r in _damageRepository.EntityItems
+                     on q.Id equals r.ComponentId
+                     //where p.Grade==3
+                     where p.SubType == 11
+                     //where p.BuildYear < testDateTime
+                     select new SubTypeDamageCombineViewModel
+                     {
+                         SubType= BridgeSubType.bangong,
+                         DamageNum = r.Num,
+                         DamageType=(DamageType)r.Num,
+                         DamageCounts= (from p1 in _bridgeRepository.EntityItems
+                                        join q1 in _componentRepository.EntityItems
+                                        on p1.Id equals q1.BridgeId
+                                        join r1 in _damageRepository.EntityItems
+                                        on q1.Id equals r1.ComponentId
+                                        where p1.SubType == 11
+                                        && r1.Num == r.Num
+                                        select new SubTypeDamageCombineViewModel
+                                        {                                            
+                                            DamageNum = r.Num
+                                        }).Count()
+                     }).DistinctBy(p => p.DamageType).ToList();
+
+
+
             var bridgeCountsViewModel = new BridgeSubTypeStatisticsViewModel
             {
-                BridgeSubTypeCountsArray = bridgeCountsArray
+                BridgeSubTypeCountsArray = bridgeCountsArray,
+                SubTypeDamageCombineViewModels=k,
             };
             return View(bridgeCountsViewModel);
         }
