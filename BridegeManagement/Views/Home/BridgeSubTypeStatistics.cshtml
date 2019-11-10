@@ -1,0 +1,70 @@
+﻿@model BridgeSubTypeStatisticsViewModel
+@{
+    ViewData["Title"] = "桥梁数量";
+}
+
+<table id="dataTable" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                实心板梁
+            </th>
+            <th>
+                空心板梁
+            </th>
+            <th>
+                T梁
+            </th>
+            <th>
+                小箱梁
+            </th>
+            <th>
+                箱梁
+            </th>
+            <th>
+                石拱桥
+            </th>
+            <th>
+                圬工拱桥
+            </th>
+            <th>
+                板拱
+            </th>
+            <th>
+                刚构桥
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Model.BridgeSubTypeCountsArray[0]
+            </td>
+            <td>
+                @Model.BridgeSubTypeCountsArray[1]
+            </td>
+            <td>
+                @Model.BridgeSubTypeCountsArray[2]
+            </td>
+            <td>
+                @Model.BridgeSubTypeCountsArray[3]
+            </td>
+            <td>
+                @Model.BridgeSubTypeCountsArray[4]
+            </td>
+            <td>
+                @Model.BridgeSubTypeCountsArray[5]
+            </td>
+            <td>
+                @Model.BridgeSubTypeCountsArray[6]
+            </td>
+            <td>
+                @Model.BridgeSubTypeCountsArray[7]
+            </td>
+            <td>
+                @Model.BridgeSubTypeCountsArray[8]
+            </td>
+        </tr>
+
+    </tbody>
+</table>

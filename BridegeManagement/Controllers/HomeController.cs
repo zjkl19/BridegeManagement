@@ -103,7 +103,7 @@ namespace BridegeManagement.Controllers
             //27个病害
             var damageArray = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 999 };
             int[] damageCounts = new int[27];
-            for(int i=0;i< damageArray.Count(); i++)
+            for (int i = 0; i < damageArray.Count(); i++)
             {
                 damageCounts[i] = 0;
             }
@@ -121,8 +121,8 @@ namespace BridegeManagement.Controllers
                          BridgeName = p.Name,
                          ComponentName = q.Name,
                          DamageNum = r.Num,
-                         Owner=p.Owner,                         
-                     }).DistinctBy(p=>p.BridgeName);
+                         Owner = p.Owner,
+                     }).DistinctBy(p => p.BridgeName);
 
             for (int i = 0; i < damageArray.Count(); i++)
             {
@@ -131,7 +131,7 @@ namespace BridegeManagement.Controllers
                                    on p.Id equals q.BridgeId
                                    join r in _damageRepository.EntityItems
                                    on q.Id equals r.ComponentId
-                                   where p.SubType == testSubType 
+                                   where p.SubType == testSubType
                                    //where p.BuildYear< testDateTime
                                    && r.Num == damageArray[i]
                                    select new CombineViewModel
@@ -145,8 +145,8 @@ namespace BridegeManagement.Controllers
             var v = new MainViewModel
             {
                 CombineViewModels = k,
-                DamageArray=damageArray,
-                DamageCounts= damageCounts,
+                DamageArray = damageArray,
+                DamageCounts = damageCounts,
             };
             return View(v);
         }
@@ -157,7 +157,7 @@ namespace BridegeManagement.Controllers
 
             int[] bridgeCountsArray = new int[statCounts];
 
-            DateTime[][] dateTimeArray=new DateTime[statCounts][];
+            DateTime[][] dateTimeArray = new DateTime[statCounts][];
 
             dateTimeArray[0] = new DateTime[] { new DateTime(1911, 1, 1), new DateTime(1959, 12, 31) };
             dateTimeArray[1] = new DateTime[] { new DateTime(1960, 1, 1), new DateTime(1979, 12, 31) };
@@ -167,7 +167,7 @@ namespace BridegeManagement.Controllers
             dateTimeArray[5] = new DateTime[] { new DateTime(2019, 12, 31), new DateTime(9999, 12, 31) };
 
 
-            for (int i=0;i< statCounts; i++)
+            for (int i = 0; i < statCounts; i++)
             {
                 bridgeCountsArray[i] = (from p in _bridgeRepository.EntityItems
                                         where p.BuildYear >= dateTimeArray[i][0]
@@ -179,6 +179,67 @@ namespace BridegeManagement.Controllers
             var bridgeCountsViewModel = new BridgeCountsViewModel
             {
                 BridgeCountsArray = bridgeCountsArray
+            };
+            return View(bridgeCountsViewModel);
+        }
+
+        /// <summary>
+        /// 根据桥梁子类型进行的一系列统计
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult BridgeSubTypeStatistics()
+        {
+            const int subTypeCounts = 9;
+
+            var bridgeCountsArray = new int[subTypeCounts];
+
+            var subTypeArray = new int[subTypeCounts];
+
+            //        public enum BridgeSubType
+            //{
+            //    [Display(Name = "板梁")]
+            //    banliang = 11,
+            //    [Display(Name = "空心板梁")]
+            //    kongxinbanliang = 12,
+            //    [Display(Name = "T梁")]
+            //    tliang = 13,
+            //    [Display(Name = "小箱梁")]
+            //    xiaoxiangliang = 14,
+            //    [Display(Name = "箱梁")]
+            //    xiangliang = 15,
+            //    [Display(Name = "石拱桥")]
+            //    shigongqiao = 16,
+            //    [Display(Name = "圬工拱桥")]
+            //    wugonggongqiao = 22,
+            //    [Display(Name = "板拱")]
+            //    bangong = 23,
+            //    [Display(Name = "刚构桥")]
+            //    ganggouqiao = 26,
+
+            //}
+
+
+            subTypeArray[0] = Convert.ToInt32(BridgeSubType.banliang);
+            subTypeArray[1] = 12;
+            subTypeArray[2] = 13;
+            subTypeArray[3] = 14;
+            subTypeArray[4] = 15;
+            subTypeArray[5] = 16;
+            subTypeArray[6] = 22;
+            subTypeArray[7] = 23;
+            subTypeArray[8] = 26;
+
+            for (int i = 0; i < subTypeCounts; i++)
+            {
+                bridgeCountsArray[i] = (from p in _bridgeRepository.EntityItems
+                                        where p.SubType == subTypeArray[i]
+                                        select p
+                     ).Count();
+            }
+
+            var bridgeCountsViewModel = new BridgeSubTypeStatisticsViewModel
+            {
+                BridgeSubTypeCountsArray = bridgeCountsArray
             };
             return View(bridgeCountsViewModel);
         }
