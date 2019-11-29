@@ -197,7 +197,7 @@ namespace BridegeManagement.Controllers
 
             subTypeArray[0] = Convert.ToInt32(BridgeSubType.banliang);
             subTypeArray[1] = 12; subTypeArray[2] = 13; subTypeArray[3] = 14;
-            subTypeArray[4] = 15; subTypeArray[5] = 16; subTypeArray[6] = 22;
+            subTypeArray[4] = 15; subTypeArray[5] = 21; subTypeArray[6] = 22;
             subTypeArray[7] = 23; subTypeArray[8] = 26;
 
             for (int i = 0; i < subTypeCounts; i++)
@@ -208,7 +208,7 @@ namespace BridegeManagement.Controllers
                      ).Count();
             }
 
-            var subTypeSelectArray = new int[] { 11,12,23};
+            var subTypeSelectArray = new int[] { 11,12,21,23};
 
             //病害种类，包括磨耗
             var damageArray = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 999 };

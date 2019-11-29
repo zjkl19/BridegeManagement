@@ -27,7 +27,7 @@ namespace BridegeManagement.ViewModels.HomeViewModels
         [Display(Name = "箱梁")]
         xiangliang = 15,
         [Display(Name = "石拱桥")]
-        shigongqiao = 16,
+        shigongqiao = 21,
         [Display(Name = "圬工拱桥")]
         wugonggongqiao = 22,
         [Display(Name = "板拱")]
