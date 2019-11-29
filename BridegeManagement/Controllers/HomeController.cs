@@ -208,42 +208,98 @@ namespace BridegeManagement.Controllers
                      ).Count();
             }
 
+            var subTypeSelectArray = new int[] { 11,12,23};
+
+            //病害种类，包括磨耗
             var damageArray = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 999 };
             int[] damageCounts = new int[27];
-            var k = (from p in _bridgeRepository.EntityItems
-                     join q in _componentRepository.EntityItems
-                     on p.Id equals q.BridgeId
-                     join r in _damageRepository.EntityItems
-                     on q.Id equals r.ComponentId
-                     //where p.Grade==3
-                     where p.SubType == 11
-                     //where p.BuildYear < testDateTime
-                     select new SubTypeDamageCombineViewModel
-                     {
-                         SubType= BridgeSubType.bangong,
-                         DamageNum = r.Num,
-                         DamageType=(DamageType)r.Num,
-                         DamageCounts= (from p1 in _bridgeRepository.EntityItems
-                                        join q1 in _componentRepository.EntityItems
-                                        on p1.Id equals q1.BridgeId
-                                        join r1 in _damageRepository.EntityItems
-                                        on q1.Id equals r1.ComponentId
-                                        where p1.SubType == 11
-                                        && r1.Num == r.Num
-                                        select new SubTypeDamageCombineViewModel
-                                        {                                            
-                                            DamageNum = r.Num
-                                        }).Count()
-                     }).DistinctBy(p => p.DamageType).ToList();
 
+            List<SubTypeDamageCombineViewModel> lst = new List<SubTypeDamageCombineViewModel>();
 
+            for(int i=0;i< subTypeSelectArray.Length;i++)
+            {
+                lst = lst.Concat((from p in _bridgeRepository.EntityItems
+                                  join q in _componentRepository.EntityItems
+                                  on p.Id equals q.BridgeId
+                                  join r in _damageRepository.EntityItems
+                                  on q.Id equals r.ComponentId
+                                  //where p.Grade==3
+                                  where p.SubType == subTypeSelectArray[i]
+                                  select new SubTypeDamageCombineViewModel
+                                  {
+                                      SubType = (BridgeSubType)subTypeSelectArray[i],
+                                      DamageNum = r.Num,
+                                      DamageType = (DamageType)r.Num,
+                                      DamageCounts = (from p1 in _bridgeRepository.EntityItems
+                                                      join q1 in _componentRepository.EntityItems
+                                                      on p1.Id equals q1.BridgeId
+                                                      join r1 in _damageRepository.EntityItems
+                                                      on q1.Id equals r1.ComponentId
+                                                      where p1.SubType == subTypeSelectArray[i]
+                                                      && r1.Num == r.Num
+                                                      select new SubTypeDamageCombineViewModel
+                                                      {
+                                                          DamageNum = r.Num
+                                                      }).Count()
+                                  }).DistinctBy(p => p.DamageType).ToList()).ToList();
+            }
 
             var bridgeCountsViewModel = new BridgeSubTypeStatisticsViewModel
             {
                 BridgeSubTypeCountsArray = bridgeCountsArray,
-                SubTypeDamageCombineViewModels=k,
+                SubTypeDamageCombineViewModels= lst,
             };
             return View(bridgeCountsViewModel);
+        }
+
+
+        /// <summary>
+        /// 根据病害从属类型进行的一系列统计
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult BelongToTypeStatistics()
+        {
+            var BelongToTypeSelectArray = new int[] { 1, 2, 3 };
+
+            //病害种类，包括磨耗
+            var damageArray = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 999 };
+            int[] damageCounts = new int[27];
+
+            var lst = new List<BelongToTypeDamageCombineViewModel>();
+
+            for (int i = 0; i < BelongToTypeSelectArray.Length; i++)
+            {
+                lst = lst.Concat((from p in _bridgeRepository.EntityItems
+                                  join q in _componentRepository.EntityItems
+                                  on p.Id equals q.BridgeId
+                                  join r in _damageRepository.EntityItems
+                                  on q.Id equals r.ComponentId
+                                  //where p.Grade==3
+                                  where q.BelongTo == BelongToTypeSelectArray[i].ToString()
+                                  select new BelongToTypeDamageCombineViewModel
+                                  {
+                                      BelongToType=(BelongToType)BelongToTypeSelectArray[i],
+                                      DamageNum = r.Num,
+                                      DamageType = (DamageType)r.Num,
+                                      DamageCounts = (from p1 in _bridgeRepository.EntityItems
+                                                      join q1 in _componentRepository.EntityItems
+                                                      on p1.Id equals q1.BridgeId
+                                                      join r1 in _damageRepository.EntityItems
+                                                      on q1.Id equals r1.ComponentId
+                                                      where q1.BelongTo == BelongToTypeSelectArray[i].ToString()
+                                                      && r1.Num == r.Num
+                                                      select new BelongToTypeDamageCombineViewModel
+                                                      {
+                                                          DamageNum = r.Num
+                                                      }).Count()
+                                  }).DistinctBy(p => p.DamageType).ToList()).ToList();
+            }
+
+            var retVM = new BelongToTypeStatisticsViewModel
+            {
+                BelongToTypeDamageCombineViewModels = lst,
+            };
+            return View(retVM);
         }
 
         //[HttpGet]

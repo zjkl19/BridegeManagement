@@ -1,0 +1,59 @@
+﻿@model BelongToTypeStatisticsViewModel
+@{
+    ViewData["Title"] = "根据从属部位进行的病害数量统计";
+    int k = 1;
+}
+<div>病害统计：</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                序号
+            </th>
+            <th>
+                桥梁类型
+            </th>
+            <th>
+                病害代码
+            </th>
+            <th>
+                病害类型
+            </th>
+            <th>
+                病害数量
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int j = 0; j < Model.BelongToTypeDamageCombineViewModels.Count(); j++)
+        {
+
+        <tr>
+            <td>
+                @k
+                @{
+                    k++;
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(x => Model.BelongToTypeDamageCombineViewModels[j].BelongToType)
+            </td>
+            <td>
+                @Convert.ToInt32(Model.BelongToTypeDamageCombineViewModels[j].DamageType)
+            </td>
+            <td>
+                @Html.DisplayFor(x => Model.BelongToTypeDamageCombineViewModels[j].DamageType)
+            </td>
+            <td>
+                @Model.BelongToTypeDamageCombineViewModels[j].DamageCounts
+            </td>
+            <td>
+            </td>
+        </tr>
+
+
+
+        }
+
+    </tbody>
+</table>
