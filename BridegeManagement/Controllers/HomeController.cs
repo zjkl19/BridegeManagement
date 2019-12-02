@@ -153,18 +153,20 @@ namespace BridegeManagement.Controllers
 
         public IActionResult BridgeCounts()
         {
-            const int statCounts = 6;
+            const int statCounts = 8;
 
             int[] bridgeCountsArray = new int[statCounts];
 
             DateTime[][] dateTimeArray = new DateTime[statCounts][];
 
             dateTimeArray[0] = new DateTime[] { new DateTime(1911, 1, 1), new DateTime(1959, 12, 31) };
-            dateTimeArray[1] = new DateTime[] { new DateTime(1960, 1, 1), new DateTime(1979, 12, 31) };
-            dateTimeArray[2] = new DateTime[] { new DateTime(1980, 1, 1), new DateTime(1999, 12, 31) };
-            dateTimeArray[3] = new DateTime[] { new DateTime(2000, 1, 1), new DateTime(2009, 12, 31) };
-            dateTimeArray[4] = new DateTime[] { new DateTime(2010, 1, 1), new DateTime(2019, 12, 31) };
-            dateTimeArray[5] = new DateTime[] { new DateTime(2019, 12, 31), new DateTime(9999, 12, 31) };
+            dateTimeArray[1] = new DateTime[] { new DateTime(1960, 1, 1), new DateTime(1969, 12, 31) };
+            dateTimeArray[2] = new DateTime[] { new DateTime(1970, 1, 1), new DateTime(1979, 12, 31) };
+            dateTimeArray[3] = new DateTime[] { new DateTime(1980, 1, 1), new DateTime(1989, 12, 31) };
+            dateTimeArray[4] = new DateTime[] { new DateTime(1990, 1, 1), new DateTime(1999, 12, 31) };
+            dateTimeArray[5] = new DateTime[] { new DateTime(2000, 1, 1), new DateTime(2009, 12, 31) };
+            dateTimeArray[6] = new DateTime[] { new DateTime(2010, 1, 1), new DateTime(2019, 12, 31) };
+            dateTimeArray[7] = new DateTime[] { new DateTime(2020, 1, 1), new DateTime(9999, 12, 31) };
 
 
             for (int i = 0; i < statCounts; i++)
